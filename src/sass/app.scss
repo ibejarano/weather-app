@@ -31,3 +31,11 @@ html, body, #root {
     }
 }
 
+.btn {
+    border: 1px solid #ddd;
+    margin: 15px;
+
+    &:focus {
+        outline: none;
+    }
+}
