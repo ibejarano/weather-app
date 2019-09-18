@@ -1,0 +1,41 @@
+.top-container {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+    align-items: center;
+    background-color: #445B81;
+    height: 100%;
+    width: 100%;
+
+    .title {
+        color: #fff;
+        font-size: 20px;
+    }
+
+
+
+}
+
+
+.weather-container {
+
+    color: #fff;
+    margin-top: 1.2em;
+
+    .header , .footer {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .inner-container {
+        display: flex; 
+        flex-direction: row;
+        justify-content: center;
+        margin: 0.5em 0;
+    }
+
+    .footer {
+        font-size: 26px;
+    }
+}
