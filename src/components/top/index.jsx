@@ -9,9 +9,12 @@ export default class TopSection extends React.Component {
     }
 
     render () {
+
+
         return <div className="top-container"> 
             <div className="title">Weather Up</div>
-            <Weather />
+            <Weather {...this.props}
+                    />
             <button className="btn btn-select-location">Select Location</button>
         </div>;
     }
