@@ -13,25 +13,27 @@ class App extends React.Component {
     super(props);
     this.state = {
       location: 'London',
-      forcastDays: 5,
+      numForcastDays: 5,
       isLoading: true
     }
   }
 
   updateWeather() {
 
-    const { location , forcastDays } = this.state;
+    const { location , numForcastDays } = this.state;
 
-    axios.get(`http://api.weatherstack.com/forecast?access_key=${WEATHER_KEY}&query=${location}&days=${forcastDays}`).then((res) =>{
+    axios.get(`http://api.weatherstack.com/forecast?access_key=${WEATHER_KEY}&query=${location}&days=${numForcastDays}`).then((res) =>{
       return res.data
     }).then(
       (data) => {
+        console.log(data)
         this.setState({
           isLoading: false,
           temperature: data.current.temperature,
           isDay: data.current.is_day,
           text: data.current.weather_descriptions[0],
-          iconURL: data.current.weather_icons[0]
+          iconURL: data.current.weather_icons[0],
+          forcastdays: Array(5)
         })
       }
     ).catch((err) => {
@@ -54,7 +56,7 @@ class App extends React.Component {
 
   render () {
 
-    const {isLoading, location, temperature, isDay, text, iconURL } = this.state;
+    const {isLoading, location, temperature, isDay, text, iconURL, forcastdays } = this.state;
 
     return <div className="app-container">
       <div className="main-container">
@@ -70,7 +72,7 @@ class App extends React.Component {
                     />
          </div>}
         <div className="bottom-section"> 
-        <BottomSection /> 
+        <BottomSection forcastdays={forcastdays}/> 
         </div>
       </div>
     </div>
