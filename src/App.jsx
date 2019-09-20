@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import './sass/app.scss'
 import axios from 'axios';
@@ -13,16 +12,17 @@ class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      cityName: 'London',
+      location: 'London',
       forcastDays: 5,
       isLoading: true
     }
   }
 
-  componentDidMount(){
-    const { cityName , forcastDays } = this.state;
-    
-    axios.get(`http://api.weatherstack.com/forecast?access_key=${WEATHER_KEY}&query=${cityName}&days=${forcastDays}`).then((res) =>{
+  updateWeather() {
+
+    const { location , forcastDays } = this.state;
+
+    axios.get(`http://api.weatherstack.com/forecast?access_key=${WEATHER_KEY}&query=${location}&days=${forcastDays}`).then((res) =>{
       return res.data
     }).then(
       (data) => {
@@ -40,20 +40,33 @@ class App extends React.Component {
     });
   }
 
+  componentDidMount(){
+    const { eventEmitter } = this.props;
+
+    this.updateWeather();
+
+    eventEmitter.on("updateWeather", (data) => {
+      this.setState({
+        location: data
+      }, () => this.updateWeather() );
+    })
+  }
+
   render () {
 
-    const {isLoading, cityName, temperature, isDay, text, iconURL } = this.state;
+    const {isLoading, location, temperature, isDay, text, iconURL } = this.state;
 
     return <div className="app-container">
       <div className="main-container">
         {isLoading && <h3>Loading weather...</h3>  }
         {!isLoading &&
         <div className="top-section"> 
-        <TopSection location={cityName}
+        <TopSection location={location}
                     temperature={temperature}
                     isDay={isDay}
                     text={text}
                     iconURL={iconURL}
+                    eventEmitter = {this.props.eventEmitter}
                     />
          </div>}
         <div className="bottom-section"> 

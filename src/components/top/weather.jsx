@@ -7,10 +7,9 @@ export default class Weather extends React.Component {
     }
 
     render() {
-        const {cityName, temperature, isDay, text, iconURL } = this.props;
-        console.log(text)
+        const {location, temperature, isDay, text, iconURL } = this.props;
         return <div className="weather-container">
-            <div className="header">{cityName}</div>
+            <div className="header">{location}</div>
             <div className="inner-container">
                 <div className="image"><img src={ iconURL }/></div>
                 <div className="current-weather">{ temperature }</div>
