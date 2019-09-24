@@ -14,7 +14,8 @@ class App extends React.Component {
     this.state = {
       location: 'London',
       numForcastDays: 5,
-      isLoading: true
+      isLoading: true,
+      forcastdays: []
     }
   }
 
@@ -26,19 +27,29 @@ class App extends React.Component {
       return res.data
     }).then(
       (data) => {
-        console.log(data)
         this.setState({
           isLoading: false,
           temperature: (data.main.temp - 273).toFixed(1),
           text: data.weather[0].main,
-          forcastdays: Array(5),
           icon: data.weather[0].icon
         })
       }
     ).catch((err) => {
       if(err){
       console.error("cannot fetch Weather from API: ", err)}
-    });
+    });;
+
+    /* #TESTINGS FORECAST DAYS*/
+    const dailyForecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${location}&cnt=${numForcastDays}&APPID=${WEATHER_KEY}`
+
+    axios.get(dailyForecastUrl)
+      .then((res) => res.data)
+      .then( data => {
+        this.setState({
+          forcastdays: data.list
+        })
+      })
+      .catch((err) => console.error('you have an error:' , err))
   }
 
   componentDidMount(){
@@ -57,6 +68,8 @@ class App extends React.Component {
 
     const {isLoading, location, temperature, text, forcastdays, icon } = this.state;
     const iconURL = `http://openweathermap.org/img/wn/${icon}@2x.png`
+
+    console.log(forcastdays)
 
     return <div className="app-container">
       <div className="main-container">

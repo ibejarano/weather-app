@@ -13,8 +13,8 @@ export default class BottomSection extends React.Component {
     render () {
         const { forcastdays } = this.props;
         return <div className="bottom-container">
-            {Array(5).map((day, idx) => {
-                return <Forcastday  key={idx} />
+            {forcastdays.map((day, idx) => {
+                return <Forcastday  key={idx} weather={day} />
             })}
         </div>
     }
