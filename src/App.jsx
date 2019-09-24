@@ -6,7 +6,7 @@ import axios from 'axios';
 import TopSection from './components/top/index';
 import BottomSection from './components/bottom/index';
 
-const WEATHER_KEY = "31bbf28b49c044d60e917d3a8ee0a2ab";
+const WEATHER_KEY = "6670d82bc90ab3239a41bff4b76014ec";
 
 class App extends React.Component {
   constructor(props){
@@ -22,18 +22,17 @@ class App extends React.Component {
 
     const { location , numForcastDays } = this.state;
 
-    axios.get(`http://api.weatherstack.com/forecast?access_key=${WEATHER_KEY}&query=${location}&days=${numForcastDays}`).then((res) =>{
+    axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${location}&APPID=${WEATHER_KEY}`).then((res) =>{
       return res.data
     }).then(
       (data) => {
         console.log(data)
         this.setState({
           isLoading: false,
-          temperature: data.current.temperature,
-          isDay: data.current.is_day,
-          text: data.current.weather_descriptions[0],
-          iconURL: data.current.weather_icons[0],
-          forcastdays: Array(5)
+          temperature: (data.main.temp - 273).toFixed(1),
+          text: data.weather[0].main,
+          forcastdays: Array(5),
+          icon: data.weather[0].icon
         })
       }
     ).catch((err) => {
@@ -56,7 +55,8 @@ class App extends React.Component {
 
   render () {
 
-    const {isLoading, location, temperature, isDay, text, iconURL, forcastdays } = this.state;
+    const {isLoading, location, temperature, text, forcastdays, icon } = this.state;
+    const iconURL = `http://openweathermap.org/img/wn/${icon}@2x.png`
 
     return <div className="app-container">
       <div className="main-container">
@@ -65,10 +65,9 @@ class App extends React.Component {
         <div className="top-section"> 
         <TopSection location={location}
                     temperature={temperature}
-                    isDay={isDay}
                     text={text}
-                    iconURL={iconURL}
                     eventEmitter = {this.props.eventEmitter}
+                    iconURL={iconURL}
                     />
          </div>}
         <div className="bottom-section"> 
