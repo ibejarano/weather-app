@@ -13,9 +13,11 @@ export default class BottomSection extends React.Component {
     render () {
         const { forcastdays } = this.props;
         return <div className="bottom-container">
+            <div className="forecast-container">
             {forcastdays.map((day, idx) => {
                 return <Forcastday  key={idx} weather={day} />
             })}
+            </div>
         </div>
     }
 }

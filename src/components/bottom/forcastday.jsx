@@ -8,10 +8,9 @@ export default class Forcastday extends React.Component {
 
         const iconUrl = `http://openweathermap.org/img/wn/${weather[0].icon}@2x.png`
 
-        return <div className="forcastday-container">
-            <div className="image">
-                <div className="text"><img src={iconUrl} alt="forcast img"/>{(main.temp - 273).toFixed(1)}</div>
-            </div>
+        return <div className="forcastday-one-container">
+                <img src={iconUrl} alt="forcast img"/>
+                <div className="text">{(main.temp - 273).toFixed(1)}</div>
         </div>
     }
 

@@ -6,22 +6,32 @@
     background-size: cover;
 }
 
-.forcastday-container {
+.forecast-container {
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    justify-content: space-evenly;
 
-    .image {
-        wiidth: 2em;
-        height: 2em;
+    .forcastday-one-container {
+        display: flex;
+        flex-direction: column;
+        background-color: #6abeca;
+        border-radius: 10px;
+        align-items: center;
+
         img {
-            width: 100%;
-            height: 100%;
+            width: 80%;
+            height: 80%;
         }
-    }
-
-    .text {
-        font-size: 12px;
+        
+        .text {
+            font-size: 1em;
+            width: 100%;
+            text-align: center;
+            padding: 0.1em;
+        }
     }
 }
