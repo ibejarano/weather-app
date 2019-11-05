@@ -1,20 +1,49 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography'
 
-export default class Weather extends React.Component {
+const useStyles = makeStyles(theme => ({
+    root: {
+        padding: theme.spacing(1, 1),
 
-    constructor(props){
-        super(props);
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'violet',
+        flexDirection: 'column'
+    },
+    image: {
+    width: '80%'
+    },
+    text: {
+        color: 'white'
     }
+  }));
 
-    render() {
-        const {location, temperature, isDay, text, iconURL } = this.props;
-        return <div className="weather-container">
-            <div className="header">{location}</div>
-            <div className="inner-container">
-                <div className="image"><img src={ iconURL }/></div>
-                <div className="current-weather">{ temperature }</div>
-            </div>
-            <div className="footer">{ text }</div>
-        </div>
-    }
+
+export default function Weather({location, temperature, text, iconURL }) {
+
+    const classes = useStyles();
+
+        return( 
+        <React.Fragment>
+        <Paper className={classes.root} elevation="8" >
+            <Typography className={classes.text} variant="p" component="h3">
+                {location}
+            </Typography>
+
+            <img className={classes.image} src={iconURL} alt="forcast img"/>
+
+            <Typography className={classes.text} variant="h6" component="h2">
+                {`${temperature} °C`}
+            </Typography>
+
+            <Typography className={classes.text} variant="p" component="h4">
+                {text}
+            </Typography>
+
+        </Paper>
+        </React.Fragment>
+    )
 }
