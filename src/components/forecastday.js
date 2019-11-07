@@ -25,7 +25,6 @@ const useStyles = makeStyles(theme => ({
 export default function Forcastday(props) {
     const classes = useStyles();
 
-
     const { main,  weather } = props.weather
 
     const iconUrl = `http://openweathermap.org/img/wn/${weather[0].icon}@2x.png`

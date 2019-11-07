@@ -3,8 +3,8 @@ import './App.css';
 import './sass/app.scss'
 import axios from 'axios';
 
-import TopSection from './components/top/index';
-import BottomSection from './components/bottom/index';
+import WeatherSection from './components/weatherContainer';
+import ForecastSection from './components/forecastContainer';
 
 const WEATHER_KEY = "6670d82bc90ab3239a41bff4b76014ec";
 
@@ -15,7 +15,7 @@ class App extends React.Component {
       location: 'London',
       numForcastDays: 5,
       isLoading: true,
-      forcastdays: []
+      forecastdays: []
     }
   }
 
@@ -46,7 +46,7 @@ class App extends React.Component {
       .then((res) => res.data)
       .then( data => {
         this.setState({
-          forcastdays: data.list
+          forecastdays: data.list
         })
       })
       .catch((err) => console.error('you have an error:' , err))
@@ -66,17 +66,15 @@ class App extends React.Component {
 
   render () {
 
-    const {isLoading, location, temperature, text, forcastdays, icon } = this.state;
+    const {isLoading, location, temperature, text, forecastdays, icon } = this.state;
     const iconURL = `http://openweathermap.org/img/wn/${icon}@2x.png`
-
-    console.log(forcastdays)
 
     return <div className="app-container">
       <div className="main-container">
         {isLoading && <h3>Loading weather...</h3>  }
         {!isLoading &&
         <div className="top-section"> 
-        <TopSection location={location}
+        <WeatherSection location={location}
                     temperature={temperature}
                     text={text}
                     eventEmitter = {this.props.eventEmitter}
@@ -84,7 +82,7 @@ class App extends React.Component {
                     />
          </div>}
         <div className="bottom-section"> 
-        <BottomSection forcastdays={forcastdays}/> 
+        <ForecastSection forecastdays={forecastdays}/> 
         </div>
       </div>
     </div>

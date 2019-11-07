@@ -1,5 +1,5 @@
 import React from 'react';
-import './style.scss'
+import './style-weather.scss'
 import Weather from './weather';
 
 import { Manager, Reference, Popper } from 'react-popper';
