@@ -16,6 +16,8 @@
   color: #61dafb;
 }
 
-.app-container {
-  background-color: #200031;
+.main-container {
+  /* background: url('./resources/images/sunny-image.jpg'); */
+  /* background-size: auto; */
+  background-color: #61dafb;
 }
