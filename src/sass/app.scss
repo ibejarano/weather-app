@@ -17,10 +17,9 @@ html, body, #root {
         display: flex;
         flex-direction: column;
         min-width: 600px;
-        height: 300px;
         border: 1px solid #999;
         border-radius: 3px;
-
+        padding: 1rem;
         .top-section {
             flex: 0 0 50%;
         }

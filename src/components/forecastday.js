@@ -5,13 +5,14 @@ import Typography from '@material-ui/core/Typography'
 
 const useStyles = makeStyles(theme => ({
     root: {
-        padding: theme.spacing(1, 1),
-        width: 80,
-        height: 80,
+        padding: theme.spacing(0, 1),
+        margin: theme.spacing( 0,1 ),
+        width: 100,
+        height: 100,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'violet',
+        backgroundColor: 'rgba(100,150,120,0.5)',
         flexDirection: 'column'
     },
     image: {
@@ -33,8 +34,8 @@ export default function Forcastday(props) {
         <React.Fragment>
 
         <Paper className={classes.root} elevation="3" >
-            <img className={classes.image} src={iconUrl} alt="forcast img"/>
-            <Typography className={classes.text} variant="h6" component="h2">
+            <img className={classes.image} src={iconUrl} alt="forecast img"/>
+            <Typography className={classes.text} variant="h6" component="h3">
                 {`${(main.temp - 273).toFixed(1)} °C`}
             </Typography>
         </Paper>
