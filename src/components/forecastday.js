@@ -33,9 +33,9 @@ export default function Forcastday(props) {
     return ( 
         <React.Fragment>
 
-        <Paper className={classes.root} elevation="3" >
+        <Paper className={classes.root} elevation={3} >
             <img className={classes.image} src={iconUrl} alt="forecast img"/>
-            <Typography className={classes.text} variant="h6" component="h3">
+            <Typography className={classes.text}>
                 {`${(main.temp - 273).toFixed(1)} °C`}
             </Typography>
         </Paper>

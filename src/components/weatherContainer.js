@@ -36,7 +36,6 @@ export default class TopSection extends React.Component {
 
     render () {
         const { isSelectLocationOpen } = this.state
-        const { eventEmitter } = this.props
 
         return <div className="top-container"> 
             <div className="title">Weather Up</div>

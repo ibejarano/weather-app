@@ -28,7 +28,7 @@ export default function Weather({location, temperature, text, iconURL }) {
 
         return( 
         <React.Fragment>
-        <Paper className={classes.root} elevation="8" >
+        <Paper className={classes.root} elevation={8} >
             <Typography className={classes.text} variant="p" component="h3">
                 {location}
             </Typography>
