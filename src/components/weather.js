@@ -10,7 +10,7 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'violet',
+        backgroundColor: "rgba(100,150,120,0.5)",
         flexDirection: 'column'
     },
     image: {
@@ -22,24 +22,20 @@ const useStyles = makeStyles(theme => ({
   }));
 
 
-export default function Weather({location, temperature, text, iconURL }) {
+export default function Weather({temperature, text, iconURL }) {
 
     const classes = useStyles();
 
         return( 
         <React.Fragment>
         <Paper className={classes.root} elevation={8} >
-            <Typography className={classes.text} variant="p" component="h3">
-                {location}
-            </Typography>
-
             <img className={classes.image} src={iconURL} alt="forcast img"/>
 
-            <Typography className={classes.text} variant="h6" component="h2">
+            <Typography className={classes.text} variant="h4" component="h2">
                 {`${temperature} °C`}
             </Typography>
 
-            <Typography className={classes.text} variant="p" component="h4">
+            <Typography className={classes.text} variant="h5" component="h4">
                 {text}
             </Typography>
 

@@ -1,10 +1,11 @@
 .top-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
     align-items: center;
     height: 100%;
     width: 100%;
+    justify-content: space-around;
 
     .title {
         color: #fff;

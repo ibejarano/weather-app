@@ -22,10 +22,12 @@ html, body, #root {
         padding: 1rem;
         .top-section {
             flex: 0 0 50%;
+            height: 30vh;
         }
 
         .bottom-section {
             flex: 0 0 50%;
+            height: 25vh
         }
     }
 }
