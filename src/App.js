@@ -12,7 +12,7 @@ class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      location: 'London',
+      location: 'Buenos Aires',
       numForcastDays: 5,
       isLoading: true,
       forecastdays: []

@@ -1,6 +1,7 @@
 import React from "react";
 import "./style-weather.scss";
 import Weather from "./weather";
+import LayoutTopContainer from './layoutTopContainer';
 
 import { Manager, Reference, Popper } from "react-popper";
 import LocationContainer from "./locationContainer";
@@ -41,8 +42,8 @@ export default class TopSection extends React.Component {
 
     return (
       <div className="top-container">
+        <LayoutTopContainer>
           <LocationContainer location={this.props.location}>
-
           <Manager>
             <Reference>
               {({ ref }) => (
@@ -88,6 +89,7 @@ export default class TopSection extends React.Component {
           </LocationContainer>
 
         <Weather {...this.props} />
+        </LayoutTopContainer>
       </div>
     );
   }

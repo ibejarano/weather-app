@@ -1,18 +1,13 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    padding: theme.spacing(1, 1),
-
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "rgba(100,150,120,0.5)",
-    flexDirection: "column",
-    height:'80%'
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-around'
   },
   text: {
     color: "white",
@@ -24,8 +19,7 @@ export default function LocationContainer(props) {
   const date = new Date();
   const formatDate = date.toLocaleString().split(", ");
   return (
-    <div>
-      <Paper className={classes.root} >
+    <div className={classes.root}>
         <Typography className={classes.text} variant='h4' component="body1">
           {props.location}
         </Typography>
@@ -36,7 +30,6 @@ export default function LocationContainer(props) {
           {formatDate[0]}
         </Typography>
         {props.children}
-      </Paper>
     </div>
   );
 }
