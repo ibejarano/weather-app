@@ -1,14 +1,17 @@
-import React from "react";
+import React, {Component} from "react";
 import "./App.css";
 import "./sass/app.scss";
-import axios from "axios";
+
+import {
+  getWeather,
+  getBackgroundImage,
+  getForecast
+} from './helpers/requests'
 
 import WeatherSection from "./components/weatherContainer";
 import ForecastSection from "./components/forecastContainer";
 
-const WEATHER_KEY = process.env.REACT_APP_URI_KEY;
-
-class App extends React.Component {
+class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,58 +22,27 @@ class App extends React.Component {
     };
   }
 
-  updateWeather() {
+  async updateWeather() {
     const { location, numForcastDays } = this.state;
-    console.log("my id", `Cliend-ID ${process.env.API_KEY}`);
-    axios
-      .get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${location}&APPID=${WEATHER_KEY}`
-      )
-      .then((res) => {
-        return res.data;
-      })
-      .then((data) => {
-        this.setState({
-          isLoading: false,
-          temperature: (data.main.temp - 273).toFixed(1),
-          text: data.weather[0].main,
-          icon: data.weather[0].icon,
-        });
+    const {data , err} = await getWeather(location);
+    this.setState({
+      isLoading: false,
+      temperature: (data.main.temp - 273).toFixed(1),
+      text: data.weather[0].main,
+      icon: data.weather[0].icon,
+    });
+    
+    const image = await getBackgroundImage(data.weather[0].main);
+    console.log(image)
+    this.setState({
+      background: image.data.results[0].urls.regular,
+    });
 
-        axios
-          .get("https://api.unsplash.com/search/photos", {
-            params: { query: `weather ${data.weather[0].main}` },
-            headers: {
-              Authorization:
-                "Client-ID fdd5f3584357c4701ebbe69fc52c46db98728ba8edb3d5c63b067189e77c5615",
-            },
-          })
-          .then((result) => {
-            console.log(result);
-            this.setState({
-              background: result.data.results[0].urls.regular,
-            });
-          })
-          .catch((err) => console.log("Error ocurrio!", err));
-      })
-      .catch((err) => {
-        if (err) {
-          console.error("cannot fetch Weather from API: ", err);
-        }
-      });
+    const forecastData = await getForecast(location, numForcastDays);
+    this.setState({
+      forecastdays: forecastData.data.list,
+    });
 
-    /* #TESTINGS FORECAST DAYS*/
-    const dailyForecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${location}&cnt=${numForcastDays}&APPID=${WEATHER_KEY}`;
-
-    axios
-      .get(dailyForecastUrl)
-      .then((res) => res.data)
-      .then((data) => {
-        this.setState({
-          forecastdays: data.list,
-        });
-      })
-      .catch((err) => console.error("you have an error:", err));
   }
 
   componentDidMount() {
