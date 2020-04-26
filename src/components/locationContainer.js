@@ -20,7 +20,7 @@ export default function LocationContainer(props) {
   const formatDate = date.toLocaleString().split(", ");
   return (
     <div className={classes.root}>
-        <Typography className={classes.text} variant='h4' component="body1">
+        <Typography className={classes.text} variant='h4'>
           {props.location}
         </Typography>
         <Typography className={classes.text} component="h3">

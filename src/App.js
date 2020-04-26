@@ -1,12 +1,12 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import "./App.css";
 import "./sass/app.scss";
 
 import {
   getWeather,
   getBackgroundImage,
-  getForecast
-} from './helpers/requests'
+  getForecast,
+} from "./helpers/requests";
 
 import WeatherSection from "./components/weatherContainer";
 import ForecastSection from "./components/forecastContainer";
@@ -24,25 +24,32 @@ class App extends Component {
 
   async updateWeather() {
     const { location, numForcastDays } = this.state;
-    const {data , err} = await getWeather(location);
+    let data;
+    if (!localStorage.getItem("weather-app")) {
+      data  = await getWeather(location);
+      localStorage.setItem("weather-app", JSON.stringify(data.data));
+    } else {
+      const dataLocal = localStorage.getItem("weather-app");
+      data = JSON.parse(dataLocal);
+      console.log(data)
+    }
+
     this.setState({
       isLoading: false,
       temperature: (data.main.temp - 273).toFixed(1),
       text: data.weather[0].main,
       icon: data.weather[0].icon,
     });
-    
-    const image = await getBackgroundImage(data.weather[0].main);
-    console.log(image)
-    this.setState({
-      background: image.data.results[0].urls.regular,
-    });
 
-    const forecastData = await getForecast(location, numForcastDays);
-    this.setState({
-      forecastdays: forecastData.data.list,
-    });
+    // const image = await getBackgroundImage(data.weather[0].main);
+    // this.setState({
+    //   background: image.data.results[0].urls.regular,
+    // });
 
+    // const forecastData = await getForecast(location, numForcastDays);
+    // this.setState({
+    //   forecastdays: forecastData.data.list,
+    // });
   }
 
   componentDidMount() {
