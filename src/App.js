@@ -8,7 +8,7 @@ import {
   getForecast,
 } from "./helpers/requests";
 
-import WeatherSection from "./components/weatherContainer";
+import Weather from "./components/weather";
 import ForecastSection from "./components/forecastContainer";
 
 class App extends Component {
@@ -26,12 +26,12 @@ class App extends Component {
     const { location, numForcastDays } = this.state;
     let data;
     if (!localStorage.getItem("weather-app")) {
-      data  = await getWeather(location);
+      data = await getWeather(location);
       localStorage.setItem("weather-app", JSON.stringify(data.data));
     } else {
       const dataLocal = localStorage.getItem("weather-app");
       data = JSON.parse(dataLocal);
-      console.log(data)
+      console.log(data);
     }
 
     this.setState({
@@ -41,10 +41,10 @@ class App extends Component {
       icon: data.weather[0].icon,
     });
 
-    // const image = await getBackgroundImage(data.weather[0].main);
-    // this.setState({
-    //   background: image.data.results[0].urls.regular,
-    // });
+    const image = await getBackgroundImage(data.weather[0].main);
+    this.setState({
+      background: image.data.results[0].urls.regular,
+    });
 
     // const forecastData = await getForecast(location, numForcastDays);
     // this.setState({
@@ -68,38 +68,19 @@ class App extends Component {
   }
 
   render() {
-    const {
-      isLoading,
-      location,
-      temperature,
-      text,
-      forecastdays,
-      icon,
-    } = this.state;
+    const { isLoading, icon } = this.state;
     const iconURL = `http://openweathermap.org/img/wn/${icon}@2x.png`;
 
     return (
       <div className="app-container">
-        <div
-          className="main-container"
-          style={{ background: `url(${this.state.background})` }}
-        >
-          {isLoading && <h3>Loading weather...</h3>}
-          {!isLoading && (
-            <div className="top-section">
-              <WeatherSection
-                location={location}
-                temperature={temperature}
-                text={text}
-                eventEmitter={this.props.eventEmitter}
-                iconURL={iconURL}
-              />
-            </div>
-          )}
-          <div className="bottom-section">
-            <ForecastSection forecastdays={forecastdays} />
-          </div>
-        </div>
+        {isLoading && <h3>Loading weather...</h3>}
+        {!isLoading && (
+          <Weather
+            eventEmitter={this.props.eventEmitter}
+            iconURL={iconURL}
+            {...this.state}
+          />
+        )}
       </div>
     );
   }
