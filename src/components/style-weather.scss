@@ -35,3 +35,27 @@
   border-radius: 3px;
   color: #204;
 }
+
+.search-bar {
+  margin: 0 auto;
+  position: relative;
+  height: 40px;
+}
+
+.search-list {
+  display: flex;
+  flex-flow: column wrap;
+  position: relative;
+
+  span {
+    background: white;
+    font-size: 0.7em;
+    padding: 0.3em;
+    max-width: 30%;
+  }
+
+  span:hover {
+    position: relative;
+    background: blue;
+  }
+}

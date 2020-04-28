@@ -10,6 +10,7 @@ import {
 
 import Weather from "./components/weather";
 import ForecastSection from "./components/forecastContainer";
+import SearchBar from "./components/search-bar";
 
 class App extends Component {
   constructor(props) {
@@ -73,6 +74,7 @@ class App extends Component {
 
     return (
       <div className="app-container">
+        <SearchBar />
         {isLoading && <h3>Loading weather...</h3>}
         {!isLoading && (
           <Weather
