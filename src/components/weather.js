@@ -1,32 +1,18 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography'
+import React from "react";
+import "./style-weather.scss";
 
-const useStyles = makeStyles(theme => ({
-    image: {
-    width: '80%'
-    },
-    text: {
-        color: 'white'
-    }
-  }));
-
-
-export default function Weather({temperature, text, iconURL }) {
-
-    const classes = useStyles();
-
-        return( 
-        <div>
-            <img className={classes.image} src={iconURL} alt="forcast img"/>
-
-            <Typography className={classes.text} variant="h4" component="h2">
-                {`${temperature} °C`}
-            </Typography>
-
-            <Typography className={classes.text} variant="h5" component="h4">
-                {text}
-            </Typography>
-        </div>
-    )
+export default function Weather(props) {
+  const { temperature, iconURL, location, background } = props;
+  return (
+    <div
+      className="weather-container"
+      style={{
+        backgroundImage: `url(${background})`,
+      }}
+    >
+      <img className="weather-icon" src={iconURL} alt="forcast img" />
+      <h1 className="weather-temperature">{`${Math.floor(temperature)} °C`}</h1>
+      <h3 className="weather-location">{location}</h3>
+    </div>
+  );
 }
