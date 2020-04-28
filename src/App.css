@@ -11,7 +11,3 @@ html {
 *:after {
   box-sizing: inherit;
 }
-
-.main-container {
-  background-size: cover;
-}

@@ -38,23 +38,30 @@
 
 .search-bar {
   margin: 0 auto;
-  position: relative;
-  height: 40px;
+  height: 60px;
+  width: 100%;
+  padding: 0 1.75em;
+  input {
+    width: 100%;
+    font-size: 20px;
+  }
 }
 
 .search-list {
   display: flex;
   flex-flow: column wrap;
   position: relative;
+  margin: 0;
 
-  span {
+  li {
     background: white;
-    font-size: 0.7em;
-    padding: 0.3em;
-    max-width: 30%;
+    font-size: 0.9em;
+    padding: 0.4em;
+    max-width: 100%;
+    list-style-type: none;
   }
 
-  span:hover {
+  li:hover {
     position: relative;
     background: blue;
   }

@@ -16,19 +16,20 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      location: "Buenos Aires",
+      location: "",
       numForcastDays: 5,
       isLoading: true,
       forecastdays: [],
     };
   }
 
-  async updateWeather() {
+  async updateWeather(refresh = false) {
     const { location, numForcastDays } = this.state;
     let data;
-    if (!localStorage.getItem("weather-app")) {
+    if (refresh || !localStorage.getItem("weather-app")) {
       data = await getWeather(location);
-      localStorage.setItem("weather-app", JSON.stringify(data.data));
+      data = data.data;
+      localStorage.setItem("weather-app", JSON.stringify(data));
     } else {
       const dataLocal = localStorage.getItem("weather-app");
       data = JSON.parse(dataLocal);
@@ -63,7 +64,7 @@ class App extends Component {
         {
           location: data,
         },
-        () => this.updateWeather()
+        () => this.updateWeather(true)
       );
     });
   }
@@ -74,7 +75,7 @@ class App extends Component {
 
     return (
       <div className="app-container">
-        <SearchBar />
+        <SearchBar eventEmitter={this.props.eventEmitter} />
         {isLoading && <h3>Loading weather...</h3>}
         {!isLoading && (
           <Weather

@@ -2,19 +2,23 @@ import React, { useState } from "react";
 
 import cities from "cities.json";
 
-const ResultsList = ({ cities, setValue }) => {
+const ResultsList = ({ cities, setValue, eventEmitter }) => {
+  const handleClick = (city) => {
+    eventEmitter.emit("updateWeather", city);
+    setValue("");
+  };
   return (
-    <li className="search-list">
+    <ul className="search-list">
       {cities.map((city, idx) => (
-        <span key={idx} onClick={() => setValue(city.name)}>
+        <li key={idx} onClick={() => handleClick(city.name)}>
           {city.name} - {city.country}
-        </span>
+        </li>
       ))}
-    </li>
+    </ul>
   );
 };
 
-const SearchBar = () => {
+const SearchBar = ({ eventEmitter }) => {
   const [value, setValue] = useState("juju");
   const handleChange = (e) => {
     setValue(e.target.value);
@@ -33,7 +37,13 @@ const SearchBar = () => {
         onChange={handleChange}
         value={value}
       />
-      {value && <ResultsList cities={matchingCities} setValue={setValue} />}
+      {value.length > 2 && (
+        <ResultsList
+          cities={matchingCities}
+          setValue={setValue}
+          eventEmitter={eventEmitter}
+        />
+      )}
     </div>
   );
 };
